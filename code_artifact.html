@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초보 집사를 위한 귀여운 고양이 모셔오기 가이드 🐾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        catPink: '#FFB7B2',
+                        catLightPink: '#FFF0F3',
+                        catPeach: '#FFDAC1',
+                        catYellow: '#E2F0CB',
+                        catCream: '#FFFDF9',
+                        catWarmGray: '#6C5B7B',
+                        catAccent: '#FF6B6B'
+                    },
+                    fontFamily: {
+                        jua: ['Jua', 'sans-serif'],
+                        gowun: ['Gowun Dodum', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Gowun Dodum', sans-serif;
+            background-color: #FFFDF9;
+            color: #4A4A4A;
+        }
+        .font-jua {
+            font-family: 'Jua', sans-serif;
+        }
+        /* Custom Paw animation & effects */
+        .paw-print {
+            position: absolute;
+            pointer-events: none;
+            animation: fadeOutPaw 1s forwards ease-out;
+            color: #FFB7B2;
+            z-index: 9999;
+        }
+        @keyframes fadeOutPaw {
+            0% { opacity: 1; transform: scale(0.8) rotate(0deg); }
+            100% { opacity: 0; transform: scale(1.3) rotate(15deg); }
+        }
+        .floating-cat {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF0F3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFB7B2;
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B6B;
+        }
+    </style>
+</head>
+<body class="bg-catCream text-gray-700 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b-4 border-catPink shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="text-3xl transition-transform group-hover:rotate-12">🐾</span>
+                <span class="font-jua text-2xl md:text-3xl text-catWarmGray tracking-wide">집사일기<span class="text-catAccent">.cat</span></span>
+            </a>
+            
+            <!-- Quick Nav Links -->
+            <nav class="hidden md:flex items-center gap-6 font-jua text-lg text-gray-600">
+                <a href="#section-first" class="hover:text-catAccent transition-colors">🏠 데려온 직후</a>
+                <a href="#section-likes" class="hover:text-catAccent transition-colors">😻 좋아하는 것</a>
+                <a href="#section-hazard" class="hover:text-catAccent transition-colors">⚠️ 주의 위험요소</a>
+                <a href="#section-faq" class="hover:text-catAccent transition-colors">❓ FAQ</a>
+            </nav>
+
+            <!-- Search Bar Component -->
+            <div class="relative w-full md:w-72">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="검색어 입력 (예: 츄르, 화장실, 식물)..." 
+                    class="w-full pl-10 pr-4 py-2 rounded-full border-2 border-catPink focus:border-catAccent focus:outline-none text-sm transition-all shadow-inner bg-catLightPink/30"
+                    onkeyup="handleSearch()"
+                >
+                <i class="fa-solid font-jua fa-magnifying-glass absolute left-3.5 top-3 text-catPink"></i>
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-xs bg-catPink hover:bg-catAccent text-white rounded-full w-5 h-5 flex items-center justify-center">✕</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-catLightPink via-catCream to-catCream py-12 px-4 relative">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-block bg-white border-2 border-catPink px-4 py-1.5 rounded-full text-sm font-bold text-catAccent mb-4 shadow-sm">
+                🐾 세상의 모든 초보 집사님들을 위하여!
+            </div>
+            <h1 class="font-jua text-3xl sm:text-5xl text-catWarmGray mb-4 leading-tight">
+                초보 집사를 위한 귀여운 <br class="sm:hidden"/>
+                <span class="text-catAccent underline decoration-catPeach decoration-wavy">고양이 모셔오기 가이드</span> 🐱
+            </h1>
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                처음 고양이를 집으로 맞이할 때 알아야 할 모든 것! <br/>
+                적응 방법부터 좋아하는 것, 꼭 피해야 할 위험요소까지 한눈에 확인하세요.
+            </p>
+
+            <!-- Hero Cards / Quick Stat Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto font-jua">
+                <a href="#section-first" class="p-4 bg-white rounded-2xl border-2 border-catPink shadow-md hover:-translate-y-1 transition-all flex flex-col items-center">
+                    <span class="text-3xl mb-1">🏡</span>
+                    <span class="text-catWarmGray">첫날 적응 팁</span>
+                </a>
+                <a href="#section-likes" class="p-4 bg-white rounded-2xl border-2 border-catPeach shadow-md hover:-translate-y-1 transition-all flex flex-col items-center">
+                    <span class="text-3xl mb-1">🐟</span>
+                    <span class="text-catWarmGray">취향저격 아이템</span>
+                </a>
+                <a href="#section-hazard" class="p-4 bg-white rounded-2xl border-2 border-catAccent/30 shadow-md hover:-translate-y-1 transition-all flex flex-col items-center">
+                    <span class="text-3xl mb-1">🚫</span>
+                    <span class="text-catWarmGray">위험요소 체크</span>
+                </a>
+                <a href="#interactive-checklist" class="p-4 bg-white rounded-2xl border-2 border-catYellow shadow-md hover:-translate-y-1 transition-all flex flex-col items-center">
+                    <span class="text-3xl mb-1">✅</span>
+                    <span class="text-catWarmGray">준비물 체크</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative background elements -->
+        <div class="absolute top-10 left-10 text-4xl floating-cat opacity-40 select-none">🐱</div>
+        <div class="absolute bottom-10 right-10 text-4xl floating-cat opacity-40 select-none" style="animation-delay: 1.5s;">🐾</div>
+    </section>
+
+    <div id="searchNotice" class="hidden max-w-5xl mx-auto px-4 my-4">
+        <div class="bg-catPeach/40 border-2 border-catPeach text-gray-700 px-4 py-3 rounded-2xl flex justify-between items-center">
+            <span id="searchNoticeText" class="font-jua text-lg"></span>
+            <button onclick="clearSearch()" class="text-sm bg-white px-3 py-1 rounded-full font-bold text-catWarmGray hover:bg-catPink hover:text-white transition-colors">
+                검색 초기화 ✕
+            </button>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-grow space-y-16">
+
+        <!-- SECTION 1: 집에 데려오자마자 할 일 -->
+        <section id="section-first" class="searchable-section scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6 border-b-4 border-catPink pb-3">
+                <span class="text-4xl">🏠</span>
+                <div>
+                    <h2 class="font-jua text-2xl sm:text-3xl text-catWarmGray">1. 집에 데려오자마자 할 일</h2>
+                    <p class="text-xs sm:text-sm text-gray-500">새로운 환경에 낯선 아기냥이를 위한 안락한 첫 공간 꾸미기</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="searchable-card bg-white rounded-3xl p-6 border-2 border-catLightPink shadow-md hover:shadow-lg transition-all relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-catLightPink rounded-2xl flex items-center justify-center text-2xl mb-4 text-catAccent group-hover:scale-110 transition-transform">
+                        🚪
+                    </div>
+                    <h3 class="font-jua text-xl text-catWarmGray mb-2">격리실(조용한 방) 준비</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed searchable-text">
+                        집 전체를 한 번에 보여주면 고양이가 큰 불안을 느낍니다. 문을 닫을 수 있는 방 하나를 지정하여 안전 영역으로 만들어주세요.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-catAccent font-bold">
+                        💡 Tip: 구석진 곳에 숨을 박스를 놓아주세요.
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="searchable-card bg-white rounded-3xl p-6 border-2 border-catLightPink shadow-md hover:shadow-lg transition-all relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-catLightPink rounded-2xl flex items-center justify-center text-2xl mb-4 text-catAccent group-hover:scale-110 transition-transform">
+                        🥛
+                    </div>
+                    <h3 class="font-jua text-xl text-catWarmGray mb-2">밥/물/화장실 분리배치</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed searchable-text">
+                        고양이는 본능적으로 후각이 예민합니다. 화장실과 식기는 최소 1.5m 이상 떨어진 서로 다른 장소에 설치해주세요.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-catAccent font-bold">
+                        💡 Tip: 물그릇은 여러 곳에 두면 음수량이 늘어나요!
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="searchable-card bg-white rounded-3xl p-6 border-2 border-catLightPink shadow-md hover:shadow-lg transition-all relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-catLightPink rounded-2xl flex items-center justify-center text-2xl mb-4 text-catAccent group-hover:scale-110 transition-transform">
+                        🤫
+                    </div>
+                    <h3 class="font-jua text-xl text-catWarmGray mb-2">스스로 탐색할 때까지 기다리기</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed searchable-text">
+                        억지로 켄넬에서 꺼내거나 안으려고 하지 마세요. 이동장 문을 열어두고 고양이가 스스로 나올 때까지 관심 없는 척 기다려주는 것이 핵심입니다.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-catAccent font-bold">
+                        💡 Tip: 눈이 마주치면 천천히 껌벅여주세요(고양이 키스).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-likes" class="searchable-section scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6 border-b-4 border-catPeach pb-3">
+                <span class="text-4xl">😻</span>
+                <div>
+                    <h2 class="font-jua text-2xl sm:text-3xl text-catWarmGray">2. 고양이가 좋아하는 것</h2>
+                    <p class="text-xs sm:text-sm text-gray-500">집사와의 친밀도를 200% 올려주는 냥이 맞춤 취향</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">📦</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">택배 종이 상자</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            비싼 침대보다 택배 박스를 좋아해요. 몸에 딱 맞는 좁은 공간은 고양이에게 심리적 안정감을 줍니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">🪶</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">깃털 낚시터 장난감</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            사냥 본능을 자극하는 사냥 놀이! 하루 15분씩 2~3회 규칙적으로 놀아주면 스트레스 해소 및 에너지를 발산할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">☀️</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">따뜻한 창가 햇살 zone</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            일광욕을 통해 체온을 유지하고 비타민 D 합성에 도움을 줍니다. 밖의 새나 풍경을 구경하는 일명 '캣TV' 관람도 좋아해요.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">💆‍♂️</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">턱 밑 & 뺨 긁어주기</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            고양이 스스로 리프팅하기 힘든 턱 아래나 귀 뒤쪽, 뺨 부위를 손가락으로 살살 긁어주면 기분 좋아 그르렁 소리를 냅니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">🏰</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">높은 수직 공간 (캣타워)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            고양이는 높을수록 영역을 안전하게 지킨다고 느낍니다. 캣타워, 캣폴 등을 설치하여 높은 시야를 제공해주세요.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="searchable-card bg-white rounded-3xl p-5 border-2 border-catPeach shadow-sm hover:shadow-md transition-all flex gap-4 items-start">
+                    <div class="text-4xl bg-catPeach/30 p-3 rounded-2xl shrink-0">🐟</div>
+                    <div>
+                        <h3 class="font-jua text-lg text-catWarmGray mb-1">액상형 간식 (츄르)</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed searchable-text">
+                            집사와 빠르게 친해질 수 있는 필살기! 적절한 간식 급여는 약을 먹이거나 발톱을 깎은 후 보상으로 아주 유용합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-hazard" class="searchable-section scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6 border-b-4 border-catAccent/40 pb-3">
+                <span class="text-4xl">⚠️</span>
+                <div>
+                    <h2 class="font-jua text-2xl sm:text-3xl text-catWarmGray">3. 주의해야 할 위험요소</h2>
+                    <p class="text-xs sm:text-sm text-red-500 font-bold">집안 곳곳에 숨어있는 고양이에게 위험한 물건들!</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Danger item 1 -->
+                <div class="searchable-card bg-red-50/50 rounded-3xl p-6 border-2 border-red-200 hover:border-red-400 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">💐</span>
+                        <h3 class="font-jua text-xl text-red-600">위험 식물 (백합, 튤립 등)</h3>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed searchable-text mb-3">
+                        특히 <strong class="text-red-600">백합과 식물</strong>은 꽃가루나 잎 한 조각만 핥아도 급성 신부전을 일으켜 사망에 이를 수 있습니다. 스투키, 몬스테라, 튤립 등도 위험하니 고양이 안전 식물(캣그라스 등)만 두세요.
+                    </p>
+                    <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-bold">치명률: 매우 높음 🚨</span>
+                </div>
+
+                <!-- Danger item 2 -->
+                <div class="searchable-card bg-red-50/50 rounded-3xl p-6 border-2 border-red-200 hover:border-red-400 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🪟</span>
+                        <h3 class="font-jua text-xl text-red-600">방충망 단속 및 추락 위험</h3>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed searchable-text mb-3">
+                        고양이는 창밖 지나가는 새나 벌레를 보고 흥분해 뛰어내릴 수 있습니다. 일반 방충망은 고양이 무게나 발톱에 쉽게 찢어지므로 <strong class="text-red-600">안전 방충망이나 락 장치</strong>가 필수입니다.
+                    </p>
+                    <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-bold">필수 조치: 방충망 잠금장치 🔒</span>
+                </div>
+
+                <!-- Danger item 3 -->
+                <div class="searchable-card bg-red-50/50 rounded-3xl p-6 border-2 border-red-200 hover:border-red-400 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🧵</span>
+                        <h3 class="font-jua text-xl text-red-600">실, 끈, 비닐, 머리끈 삼킴</h3>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed searchable-text mb-3">
+                        혀에 돋은 돌기 때문에 끈 종류를 핥다가 그대로 삼키기 쉽습니다. 장내 유착을 일으켜 긴급 수술을 받아야 할 수 있으므로 바느질 실, 털실, 머리끈은 서랍에 보관하세요.
+                    </p>
+                    <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-bold">주의: 이물질 섭취 위험 ✂️</span>
+                </div>
+
+                <!-- Danger item 4 -->
+                <div class="searchable-card bg-red-50/50 rounded-3xl p-6 border-2 border-red-200 hover:border-red-400 transition-all">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">🍫</span>
+                        <h3 class="font-jua text-xl text-red-600">인간 음식 (초콜릿, 양파, 마늘)</h3>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed searchable-text mb-3">
+                        초콜릿, 카페인, 양파, 마늘, 파, 포도 등은 고양이에게 독성이 매우 강합니다. 적은 양으로도 빈혈, 발작, 중독 증상을 유발하므로 절대 주지 마세요.
+                    </p>
+                    <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-bold">금지: 인간 먹거리 절대 금지 ❌</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="interactive-checklist" class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-catYellow shadow-md">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-3xl">📋</span>
+                <div>
+                    <h2 class="font-jua text-2xl text-catWarmGray">입양 전 필수 준비물 체크리스트</h2>
+                    <p class="text-xs text-gray-500">클릭하여 준비한 항목을 체크해보세요!</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-jua text-gray-700 mt-4" id="checklistContainer">
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>화장실 & 벤토나이트/두부모래</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>자묘/성묘용 사료 & 음수대</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>안전한 켄넬 (이동장)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>스크래처 (종이/삼줄)</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>숨어있을 숨숨집 or 박스</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-catCream rounded-2xl cursor-pointer hover:bg-catYellow/40 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-catAccent rounded cursor-pointer" onchange="updateProgress()">
+                    <span>고양이 전용 발톱깎이</span>
+                </label>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="mt-6">
+                <div class="flex justify-between text-xs font-bold text-gray-600 mb-1">
+                    <span>준비 완료율</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                    <div id="progressBar" class="bg-catAccent h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-faq" class="searchable-section scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6 border-b-4 border-catPink pb-3">
+                <span class="text-4xl">❓</span>
+                <h2 class="font-jua text-2xl sm:text-3xl text-catWarmGray">자주 묻는 질문 (FAQ)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="searchable-card bg-white rounded-2xl border-2 border-catLightPink overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left p-4 font-jua text-lg text-catWarmGray flex justify-between items-center hover:bg-catLightPink/30 transition-colors">
+                        <span class="searchable-text">Q. 목욕은 얼마나 자주 시켜야 하나요?</span>
+                        <span class="faq-icon text-catPink transition-transform duration-200">▼</span>
+                    </button>
+                    <div class="faq-content hidden p-4 pt-0 text-sm text-gray-600 border-t border-dashed border-catLightPink bg-catCream/50 leading-relaxed searchable-text">
+                        고양이는 스스로 그루밍을 하기 때문에 단모종의 경우 특별히 오염되지 않았다면 목욕이 거의 필요 없습니다. 필요시 3~6개월에 1회 정도 고양이 전용 샴푸로 미온수에 짧게 시켜주시는 것이 좋습니다.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="searchable-card bg-white rounded-2xl border-2 border-catLightPink overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left p-4 font-jua text-lg text-catWarmGray flex justify-between items-center hover:bg-catLightPink/30 transition-colors">
+                        <span class="searchable-text">Q. 밤에 자지 않고 계속 울어요 (밤우는 현상)</span>
+                        <span class="faq-icon text-catPink transition-transform duration-200">▼</span>
+                    </button>
+                    <div class="faq-content hidden p-4 pt-0 text-sm text-gray-600 border-t border-dashed border-catLightPink bg-catCream/50 leading-relaxed searchable-text">
+                        야행성 성향 때문이거나 에너지가 남아서일 확률이 높습니다. 잠들기 30분 전 깃털 장난감으로 에너지를 격렬하게 소비시켜 준 뒤 배부르게 간식이나 사료를 주면 푹 자게 됩니다.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="searchable-card bg-white rounded-2xl border-2 border-catLightPink overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="w-full text-left p-4 font-jua text-lg text-catWarmGray flex justify-between items-center hover:bg-catLightPink/30 transition-colors">
+                        <span class="searchable-text">Q. 예방접종과 중성화 수술 시기는 언제인가요?</span>
+                        <span class="faq-icon text-catPink transition-transform duration-200">▼</span>
+                    </button>
+                    <div class="faq-content hidden p-4 pt-0 text-sm text-gray-600 border-t border-dashed border-catLightPink bg-catCream/50 leading-relaxed searchable-text">
+                        기초 종합백신은 생후 8주경부터 3~4주 간격으로 총 3회 접종합니다. 중성화 수술은 첫 발정이 오기 전인 생후 5~7개월 무렵 수의사 선생님과 상담 후 진행하는 것이 권장됩니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-catLightPink/60 border-t-2 border-catPink mt-16 py-8 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <div class="text-3xl">🐾 🐱 🐾</div>
+            <p class="font-jua text-catWarmGray text-lg">모든 고양이가 행복한 세상이 되길 바랍니다.</p>
+            <p class="text-xs text-gray-500">본 가이드는 초보 집사를 위한 기본 정보용입니다. 건강상의 문제는 반드시 동물병원 수의사와 상담하세요.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* 1. Paw Print Click Effect */
+        document.addEventListener('click', function(e) {
+            // Ignore if clicking on interactive form inputs
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+
+            const paw = document.createElement('div');
+            paw.className = 'paw-print text-xl select-none';
+            paw.innerHTML = '🐾';
+            paw.style.left = (e.pageX - 10) + 'px';
+            paw.style.top = (e.pageY - 10) + 'px';
+
+            document.body.appendChild(paw);
+
+            setTimeout(() => {
+                paw.remove();
+            }, 1000);
+        });
+
+        /* 2. Live Search Functionality */
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const searchNotice = document.getElementById('searchInputNotice');
+            const searchNoticeBlock = document.getElementById('searchNotice');
+            const searchNoticeText = document.getElementById('searchNoticeText');
+            
+            const cards = document.querySelectorAll('.searchable-card');
+            let matchCount = 0;
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+                searchNoticeBlock.classList.add('hidden');
+                cards.forEach(card => card.classList.remove('hidden'));
+                return;
+            }
+
+            cards.forEach(card => {
+                const textContent = card.textContent.toLowerCase();
+                if (textContent.includes(query)) {
+                    card.classList.remove('hidden');
+                    matchCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Update result notice
+            searchNoticeBlock.classList.remove('hidden');
+            if (matchCount > 0) {
+                searchNoticeText.innerHTML = `'<span class="text-catAccent font-bold">${query}</span>' 검색 결과: <span class="text-catAccent">${matchCount}</span>개 항목 발견 🐾`;
+            } else {
+                searchNoticeText.innerHTML = `'<span class="text-catAccent font-bold">${query}</span>' 에 대한 검색 결과가 없습니다 😿`;
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            handleSearch();
+        }
+
+        /* 3. FAQ Accordion Toggle */
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.faq-icon');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        /* 4. Interactive Checklist Progress */
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('#checklistContainer input[type="checkbox"]');
+            const checked = document.querySelectorAll('#checklistContainer input[type="checkbox"]:checked');
+            const percentage = Math.round((checked.length / checkboxes.length) * 100);
+
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = percentage + '%';
+        }
+    </script>
+</body>
+</html>
